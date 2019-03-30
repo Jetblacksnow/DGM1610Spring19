@@ -41,7 +41,7 @@ https://docs.unity3d.com/ScriptReference/Rigidbody2D-velocity.html     */
         if(Input.GetAxisRaw("Horizontal") > 0f)
         {  // pressing right increases move speed by 5 making move speed > 0. 
             myRigidBody.velocity = new Vector3(moveSpeed,myRigidBody.velocity.y,0f);
-
+            
         
         }
         

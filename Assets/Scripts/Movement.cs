@@ -5,9 +5,9 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     // Start is called before the first frame update
-    public GameObject Player;
-    public float moveSpeed;
-    public GameObject Platform;
+    public GameObject Player; // told hold player
+
+
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -25,20 +25,7 @@ public class Movement : MonoBehaviour
         }
     }
 
-    private void Start() 
-    
-    {
-        Platform = GetComponet<GameObject>(this.GameObject);
-
-    }
-        void update( )
-        {
-
-
-
-
-
-        }
+     
 
 
 
