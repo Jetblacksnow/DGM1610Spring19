@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded; //Yaah! or nah! true or false. 0 or 1 , egg or chicken.
     // ADD A SPELL CHECKER!!!!
 
-    private Animator myAnnie;
+    private Animator myAnnie; // are you okay are you okay annie. 
 
     void Start()
 
@@ -31,16 +31,18 @@ public class PlayerController : MonoBehaviour
     void Update()
     {         
         
+        // Need to regulate the jump. over lap circle (https://docs.unity3d.com/ScriptReference/Physics2D.OverlapCircle.html)
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position,groundCheckRadius,whatIsGround);
+
         
-        
-        
-        /* if the input for horizontal is true, do a thing. why check for more than zero? 
-because Movespeed will = more than zero. in this case ">0 means the same thing as "go right".
-but since we are using a rigidbody we want to use velocity 
-https://docs.unity3d.com/ScriptReference/Rigidbody2D-velocity.html     */
+            /* if the input for horizontal is true, do a thing. why check for more than zero? 
+            because Movespeed will = more than zero. in this case ">0 means the same thing as "go right".
+            but since we are using a rigidbody we want to use velocity 
+            https://docs.unity3d.com/ScriptReference/Rigidbody2D-velocity.html     */
         if(Input.GetAxisRaw("Horizontal") > 0f)
         {  // pressing right increases move speed by 5 making move speed > 0. 
             myRigidBody.velocity = new Vector3(moveSpeed,myRigidBody.velocity.y,0f);
+            transform.localScale = new Vector3 (1f,1f,1f);
             
         
         }
@@ -48,6 +50,7 @@ https://docs.unity3d.com/ScriptReference/Rigidbody2D-velocity.html     */
         else if(Input.GetAxisRaw("Horizontal") < 0f)
             {
                 myRigidBody.velocity = new Vector3(-moveSpeed,myRigidBody.velocity.y,0f);
+                transform.localScale = new Vector3(-1f,1f,1f);
             }
         else
             {
@@ -63,14 +66,20 @@ https://docs.unity3d.com/ScriptReference/Rigidbody2D-velocity.html     */
         myAnnie.SetFloat("Speed",Mathf.Abs (myRigidBody.velocity.x));
         myAnnie.SetBool("Ground",isGrounded);
 
-        // Need to regulate the jump. over lap circle (https://docs.unity3d.com/ScriptReference/Physics2D.OverlapCircle.html)
-        //it's pretty much a bubble around the player. when this bubble is in contact with the ground , No jump.
-       //                                     point of space = groundcheck, how big is this check area, is it touching the layer ground? 
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position,groundCheckRadius,whatIsGround);
-
-        
-
-
-
     }
+
+
+
+  
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag == "Kill Plane")
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
+
+
+
 }
