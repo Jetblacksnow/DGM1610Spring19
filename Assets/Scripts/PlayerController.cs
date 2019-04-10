@@ -19,12 +19,20 @@ public class PlayerController : MonoBehaviour
 
     private Animator myAnnie; // are you okay are you okay annie. 
 
+    //Checkpointstuff
+    public Vector3 respawnPosition;
+
+    public LevelManager theLevelManager;
+
     void Start()
 
     {
         myRigidBody = GetComponent<Rigidbody2D>(); //this grabs the component rigidbody , Which just so happens to be the physics componet :)
-        myAnnie = GetComponent<Animator>(); // this grabs the player animator component.
+        myAnnie = GetComponent<Animator>();
 
+        respawnPosition = transform.position;
+
+        theLevelManager = FindObjectOfType<LevelManager>();
     }
 
     // Update is called once per frame
@@ -75,7 +83,13 @@ public class PlayerController : MonoBehaviour
     {
         if(other.tag == "Kill Plane")
         {
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
+            //transform.position =respawnPosition;
+            theLevelManager.Respawn();
+        }
+        if(other.tag =="CheckPointFlag")
+        {
+            respawnPosition = other.transform.position;
         }
     }
 

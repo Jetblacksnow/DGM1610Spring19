@@ -9,7 +9,7 @@ public class CheckPointController : MonoBehaviour
     public Sprite flagOpen;
 
     private SpriteRenderer theSpriteRenderer;
-
+    public bool checkpointActive;
 
     void Start()
     {
@@ -30,6 +30,7 @@ public class CheckPointController : MonoBehaviour
         if(other.tag =="Player")
         {
             theSpriteRenderer.sprite = flagOpen;
+            checkpointActive = true;
         }
     }
 
